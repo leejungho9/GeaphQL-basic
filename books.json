@@ -1,6 +1,1 @@
-[
-    {"bookId": 1, "title" : "title test", "message" : "message test", "author" : "author test", 
-    "url" : "url test" },
-    {"bookId": 2, "title" : "title test", "message" : "message test", "author" : "author test", 
-        "url" : "url test" }
-]
+[{"bookId":1,"title":"title test","message":"message test","author":"author test","url":"url test"},{"bookId":2,"title":"title test","message":"message test","author":"author test","url":"url test"},{"title":"t","message":"m","author":"a","url":"u","bookId":3}]
