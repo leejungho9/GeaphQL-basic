@@ -12,7 +12,9 @@ const typeDefs = gql`
   }
   type Mutation {
       addBook(title : String, message : String, author : String, url : String) : Book
-  }
+      editBook(bookId : Int ,title : String, message : String, author : String, url : String) : Book
+      deleteBook (bookId : Int) : Book
+    }
   type Book {
       bookId : Int
       title : String
@@ -41,7 +43,29 @@ const resolvers = {
         const newBook = {...args, bookId : maxId + 1};
        writeFileSync(join(__dirname,"books.json"), JSON.stringify([...books, newBook]));
        return newBook;
-      }
+      },
+      editBook :  (parent, args, context, info) => {
+        const books =  JSON.parse(readFileSync(join(__dirname,"books.json")).toString());
+        const newBooks = books.map(book => {
+            if(book.bookId === args.bookId) {
+                return args;
+            } else {
+                return book;
+            }
+        })
+        
+        writeFileSync(join(__dirname,"books.json"), JSON.stringify(newBooks));
+        return args;
+    },
+    deleteBook :  (parent, args, context, info) => {
+        const books =  JSON.parse(readFileSync(join(__dirname,"books.json")).toString());
+        const deleted = books.find(book => book.bookId = args.bookId);
+        
+        const newBooks = books.filter(book => book.bookId !== args.bookId);
+        
+        writeFileSync(join(__dirname,"books.json"), JSON.stringify(newBooks));
+        return deleted;
+    },
   }
 };
 
